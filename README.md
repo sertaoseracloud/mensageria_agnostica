@@ -34,3 +34,42 @@ docker compose up --build
 ```
 
 O serviço `app` irá publicar e consumir uma mensagem da fila `poc`, enquanto o contêiner `rabbitmq` disponibiliza uma instância do broker para testes.
+
+## Exemplos por Provedor
+
+O diretório `examples` traz programas que enviam e consomem uma mensagem da fila `poc` para cada provedor suportado.
+
+### RabbitMQ
+```go
+prod, _ := message.NewProducer(
+    message.ProviderRabbitMQ,
+    message.RabbitMQOptions{URL: "amqp://guest:guest@localhost:5672/"},
+)
+```
+
+### AWS SQS
+```go
+cfg, _ := config.LoadDefaultConfig(context.Background())
+prod, _ := message.NewProducer(
+    message.ProviderAWS,
+    message.AWSOptions{Config: cfg, QueueURL: "https://sqs.us-east-1.amazonaws.com/123456789012/poc"},
+)
+```
+
+### Azure Service Bus
+```go
+client, _ := azservicebus.NewClientFromConnectionString(connStr, nil)
+prod, _ := message.NewProducer(
+    message.ProviderAzure,
+    message.AzureOptions{Client: client, Queue: "poc"},
+)
+```
+
+### Oracle Queue Service
+```go
+provider := common.DefaultConfigProvider()
+prod, _ := message.NewProducer(
+    message.ProviderOracle,
+    message.OracleOptions{Provider: provider, QueueID: "ocid1.queue.oc1..."},
+)
+```
