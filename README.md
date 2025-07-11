@@ -10,9 +10,12 @@ Este repositório contém uma implementação simples de produtores e consumidor
 As interfaces genéricas estão no pacote `message` e permitem abstrair o envio e o recebimento de mensagens independente do provedor utilizado.
 
 ```go
-// Exemplo de uso do Producer genérico
-producer := rabbitmq.NewProducer("amqp://guest:guest@localhost:5672/")
-err := producer.Publish(context.Background(), "fila", []byte("exemplo"))
+// Exemplo de uso da fábrica de produtores
+prod, _ := message.NewProducer(
+    message.ProviderRabbitMQ,
+    message.RabbitMQOptions{URL: "amqp://guest:guest@localhost:5672/"},
+)
+err := prod.Publish(context.Background(), "fila", []byte("exemplo"))
 ```
 
 Cada pacote possui implementações de `Producer` e `Consumer` para o respectivo serviço de mensageria.
