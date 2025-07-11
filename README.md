@@ -23,3 +23,14 @@ Cada pacote possui implementações de `Producer` e `Consumer` para o respectivo
 ## Execução dos testes
 
 Execute `go vet ./...` e `go test ./...` para validar o código.
+
+## Exemplo em Container
+
+Para executar uma prova de conceito utilizando RabbitMQ, é fornecido um `docker-compose.yml` em `example/`. Basta possuir o Docker instalado e executar:
+
+```bash
+cd example
+docker compose up --build
+```
+
+O serviço `app` irá publicar e consumir uma mensagem da fila `poc`, enquanto o contêiner `rabbitmq` disponibiliza uma instância do broker para testes.
