@@ -587,6 +587,22 @@ prod.Publish(ctx, "poc", []byte("mensagem de teste"))
 
 É possível repetir o mesmo fluxo com os programas em `examples/aws`, `examples/azure` e `examples/oracle`, bastando fornecer as credenciais apropriadas.
 
+### Exemplo com AWS SQS
+
+O diretório `examples/aws` traz um programa simples que publica e consome uma mensagem da fila configurada na AWS. Para executar o exemplo utilize:
+
+```bash
+go run ./examples/aws
+```
+
+### Exemplo com Azure Service Bus
+
+Para Azure, defina a variável `AZURE_SERVICEBUS_CONNECTION` com a connection string do Service Bus e rode o programa em `examples/azure`:
+
+```bash
+AZURE_SERVICEBUS_CONNECTION="Endpoint=sb://..." go run ./examples/azure
+```
+
 ## Conclusão
 
 A combinação das interfaces genéricas com o _factory pattern_ torna a solução flexível e facilmente extensível. Novos provedores podem ser adicionados apenas implementando as interfaces e registrando-os na fábrica. Essa abordagem simplifica testes e permite que a aplicação foque na lógica de negócio, deixando a escolha da tecnologia de mensageria em segundo plano.
